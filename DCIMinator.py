@@ -101,6 +101,11 @@ if __name__ == "__main__":
         print("⚠️  Warning: --keep-mov has no effect unless --include-videos is also set.")
         print("    If you want to import .MOV files, use --include-videos too.\n")
 
+    if args.verbose_ffmpeg and not args.include_videos:
+        print("⚠️  Warning: --verbose-ffmpeg has no effect unless --include-videos is also set.")
+        print("    If you want to convert .MOV files with ffmpeg, use --include-videos too.\n")
+
+
     import_photos(
         args.source_dir,
         args.target_dir,
