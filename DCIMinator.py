@@ -65,7 +65,7 @@ def import_photos(source_dir, target_dir, keep_heic=False, include_videos=False,
             print(f"\n⚠️ Failed to process {file_name}: {e}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="DCIMinator: Import iPhone & IPad photos with options.")
+    parser = argparse.ArgumentParser(description="DCIMinator: Import iPhone photos with options.")
     parser.add_argument("source_dir", help="Source directory (e.g. mounted DCIM folder)")
     parser.add_argument("target_dir", help="Target directory to store all images")
 
@@ -74,6 +74,11 @@ if __name__ == "__main__":
     parser.add_argument("--keep-mov", action="store_true", help="Keep .MOV videos as-is (only applies if --include-videos is set)")
 
     args = parser.parse_args()
+
+    # 🔔 Warn if --keep-mov is used without --include-videos
+    if args.keep_mov and not args.include_videos:
+        print("⚠️  Warning: --keep-mov has no effect unless --include-videos is also set.")
+        print("    If you want to import .MOV files, use --include-videos too.\n")
 
     import_photos(
         args.source_dir,
